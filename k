@@ -19,8 +19,8 @@ then
   then
     LOCALBIN="/usr/local/bin"
   else
-    mkdir -p ~/.local/bin
-    LOCALBIN="~/.local/bin"
+    mkdir -p "$HOME/.local/bin"
+    LOCALBIN="$HOME/.local/bin"
   fi
 
   OS=$(uname -s | tr '[:upper:]' '[:lower:]')
