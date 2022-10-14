@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: kentik/pkg@v1.0.0-rc6
+      - uses: kentik/pkg@v1.0.0-rc8
         with:
           name: mkdit
           version: ${{ github.event.release.tag_name }}
@@ -25,7 +25,7 @@ jobs:
           overwrite: true
           body: ""
           file_glob: true
-      - uses: kentik/pkg@v1.0.0-rc6
+      - uses: kentik/pkg@v1.0.0-rc8
         with:
           name: mkdit
           version: ${{ github.event.release.tag_name }}
