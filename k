@@ -1,6 +1,6 @@
 #!/bin/bash
 
-linux_arch {
+linux_arch() {
   if [ -z "$(which dpkg)" ]; 
   then
     if [ "$(arch)" == "x86_64" ];
