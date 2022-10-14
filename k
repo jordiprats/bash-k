@@ -1,20 +1,18 @@
 #!/bin/bash
 
 linux_arch() {
-  if [ -z "$(which dpkg)" ]; 
+  if [ -z "$(which dpkg 2>/dev/null)" ]; 
   then
-    if [ "$(arch)" == "x86_64" ];
-    then
-      ARCH="amd64"
-    else 
-      ARCH="$(arch)"
-    fi
+    case "$(arch)" in
+      aarch64) ARCH="arm64";;
+      x86_64)  ARCH="amd64";;
+    esac
   else 
     ARCH=$(dpkg --print-architecture)
   fi
 }
 
-KUBECTLBIN=$(which kubectl)
+KUBECTLBIN=$(which kubectl 2>/dev/null)
 if [ -z "$KUBECTLBIN" ];
 then
   if [ -w "/usr/local/bin" ];
@@ -25,7 +23,7 @@ then
     LOCALBIN="~/.local/bin"
   fi
 
-  OS=$(uname -s | tr [A-Z] [a-z])
+  OS=$(uname -s | tr '[:upper:]' '[:lower:]')
   case "${OS}" in
       linux*)     linux_arch;;
       darwin*)    ARCH=$(uname -m);;
