@@ -1,1 +1,3 @@
 # bash-k
+
+kubectl lazyness
