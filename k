@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
 linux_arch() {
-  if [ -z "$(which dpkg 2>/dev/null)" ]; 
+  if [ -z "$(which dpkg)" ] 2>/dev/null; 
   then
     case "$(arch)" in
       aarch64) ARCH="arm64";;
@@ -12,7 +12,7 @@ linux_arch() {
   fi
 }
 
-KUBECTLBIN=$(which kubectl 2>/dev/null)
+KUBECTLBIN=$(which kubectl) 2>/dev/null
 if [ -z "$KUBECTLBIN" ];
 then
   if [ -w "/usr/local/bin" ];
@@ -30,8 +30,13 @@ then
       *)          echo "error retrieving arch"; exit 1;;
   esac
 
+  if [ -z "$KUBECTL_VERSION" ];
+  then
+    KUBECTL_VERSION=$(curl -L -s https://dl.k8s.io/release/stable.txt)
+  fi
+
   KUBECTLBIN="${LOCALBIN}/kubectl"
-  curl -sSLo "$KUBECTLBIN" "https://storage.googleapis.com/kubernetes-release/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/${OS}/${ARCH}/kubectl"
+  curl -sSLo "$KUBECTLBIN" "https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/${OS}/${ARCH}/kubectl"
   chmod +x "$KUBECTLBIN"
 fi
 
