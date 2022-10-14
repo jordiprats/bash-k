@@ -1,0 +1,8 @@
+meta:
+  description: kubectl lazyness
+  vendor: jordiprats
+  maintainer: jordiprats
+files:
+  "/usr/bin/k":
+    file: k
+    mode: "0755"
