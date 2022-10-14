@@ -13,7 +13,7 @@ then
 
   OS=$(uname -s | tr [A-Z] [a-z])
   case "${OS}" in
-      linux*)     ARCH=$(dpkg --print-architecture);;
+      linux*)     if [ -z "$(which dpkg)" ]; then if [ "$(arch)" == "x86_64" ]; then ARCH="amd64"; else ARCH="$(arch)"; fi; else ARCH=$(dpkg --print-architecture);;
       darwin*)    ARCH=$(uname -m);;
       *)          echo "error retrieving arch"; exit 1;;
   esac
